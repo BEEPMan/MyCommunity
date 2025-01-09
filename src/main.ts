@@ -14,7 +14,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const port = configService.get<number>('PORT') || 3000;
+  const port = configService.get<number>('PORT') || 8080;
   await app.listen(port);
 }
 bootstrap();
