@@ -2,8 +2,8 @@ name: Backend Deploy
 
 on:
   push:
-    paths:
-      - 'backend/**'
+    branches:
+      - 'main'
 
 jobs:
   build:
@@ -18,19 +18,13 @@ jobs:
           node-version: '22'
       
       - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+        run: npm install
 
       - name: Run tests
-        run: |
-          cd backend
-          npm test
+        run: npm test
 
       - name: Build
-        run: |
-          cd backend
-          npm run build
+        run: npm run build
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -40,9 +34,7 @@ jobs:
           utcOffset: "+09:00"
 
       - name: Generate deployment package
-        run: |
-          cd backend
-          zip -r ../deploy.zip . -x '*.git*' '*node_modules*'
+        run: zip -r deploy.zip . -x '*.git*' '*node_modules*'
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
